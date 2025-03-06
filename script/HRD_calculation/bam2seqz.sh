@@ -3,14 +3,22 @@
 # [ ] get base_dir, get filepath
 # [ ] script
 
-source /home/hiiluann99/playground/HRD/HRD_pipeline/preprocessing/config.sh
+
+shopt -s expand_aliases
+
+source $HRD_PIPELINE_CONFIG
+
+eval "$(conda shell.bash hook)"
 
 # read sample sheet
 # get Tumor_SRR_ID, Normal_SRR_ID and Patient_ID
-Tumor_SRR_ID=SRR22816205
-Normal_SRR_ID=SRR22816189
-Patient_ID=SU2CLC-MDA-1563
 WORK_DIR=$1
+OUTPUT_DIR=$2
+Tumor_SRR_ID=$3
+Normal_SRR_ID=$4
+Patient_ID=$5
+
+conda activate $SEQZ_ENV
 
 sequenza-utils bam2seqz \
     -t ${WORK_DIR}/${Tumor_SRR_ID}_sorted_du_bqsr.bam \
@@ -26,3 +34,5 @@ sequenza-utils seqz_binning \
 
     # -t ${WORK_DIR}/${Tumor_SRR_ID}.sorted.du.bqsr.bam \
     # -n ${WORK_DIR}/${Normal_SRR_ID}.sorted.du.bqsr.bam \
+
+conda deactivate
