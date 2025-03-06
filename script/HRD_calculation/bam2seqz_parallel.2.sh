@@ -7,6 +7,8 @@ shopt -s expand_aliases
 
 source $HRD_PIPELINE_CONFIG
 
+eval "$(conda shell.bash hook)"
+
 CHR="chr1 chr2 chr3 chr4 chr5 chr6 chr7 chr8 chr9 chr10 chr11 chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chr20 chr21 chr22 chrX chrY"
 
 # read sample sheet
@@ -29,7 +31,7 @@ sequenza-utils bam2seqz \
     -gc $GC50 \
     -o ${OUTPUT_DIR}/${Patient_ID}.seqz.gz
 
-merge seqz with sequenza-utils seqz_merge -o output.seqz.gz -1 first.seqz.gz -2 second.seqz.gz
+# merge seqz with sequenza-utils seqz_merge -o output.seqz.gz -1 first.seqz.gz -2 second.seqz.gz
 
 FILES=()
 for c in $CHR; do
