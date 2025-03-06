@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+ #!/usr/bin/bash
 
 shopt -s expand_aliases
 eval "$(conda shell.bash hook)"
