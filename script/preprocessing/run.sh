@@ -13,7 +13,11 @@ OUTPUT_DIR=$3
 # download fastq file another script
 # download $SRR_ID $NGC $WORK_DIR $OUTPUT_DIR 
 
-trimming $OUTPUT_DIR $OUTPUT_DIR $SRR_ID 
+sra2fastq $SRR_ID $WORK_DIR $OUT_DIR
+
+wait
+
+trimming $WORK_DIR $OUTPUT_DIR $SRR_ID 
 
 wait 
 
