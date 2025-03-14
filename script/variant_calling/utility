@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+
+shopt -s expand_aliases
+eval "$(conda shell.bash hook)"
+
+source $HRD_PIPELINE_CONFIG
