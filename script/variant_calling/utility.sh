@@ -16,26 +16,26 @@ run_mutect2(){
 
     # gatk --java-options "-XX:ParallelGCThreads=$THREAD -Xmx16G"
 
-    gatk Mutect2 -R $REF_GENOME \
-        -L $LIBRARY_BED \
-        -I $INPUT_DIR/${TUMOR_ID}.sorted.du.bqsr.bam \
-        -I $INPUT_DIR/${NORMAL_ID}.sorted.du.bqsr.bam \
-        -tumor $TUMOR_ID \
-        -normal $NORMAL_ID \
-        --germline-resource $GERMLINE_REF \
-        -pon $PON \
-        -O $OUT_DIR/${PATIENT_ID}.unfilter.vcf &
-
     (
+        gatk Mutect2 -R $REF_GENOME \
+            -L $LIBRARY_BED \
+            -I $INPUT_DIR/${TUMOR_ID}.sorted.du.bqsr.bam \
+            -I $INPUT_DIR/${NORMAL_ID}.sorted.du.bqsr.bam \
+            -tumor $TUMOR_ID \
+            -normal $NORMAL_ID \
+            --germline-resource $GERMLINE_REF \
+            -pon $PON \
+            -O $OUT_DIR/${PATIENT_ID}.unfilter.vcf 
+
         gatk GetPileupSummaries -I $INPUT_DIR/${TUMOR_ID}.sorted.du.bqsr.bam \
             -V ${COMMON_REF} \
-            -L ${COMMON_REF} \
-            -O $OUT_DIR/${TUMOR_ID}.pileups.table & 
+            -L ${COMMON_REF} 
+            -O $OUT_DIR/${TUMOR_ID}.pileups.table 
         
-        gatk GetPileupSummaries -I ${NORMAL_ID}.sorted.du.bqsr.bam \
+        gatk GetPileupSummaries -I $INPUT_DIR/${NORMAL_ID}.sorted.du.bqsr.bam \
             -V ${COMMON_REF} \
             -L ${COMMON_REF} \
-            -O $OUT_DIR/${NORMAL_ID}.pileups.table &
+            -O $OUT_DIR/${NORMAL_ID}.pileups.table
     )
 
     wait 
@@ -51,6 +51,9 @@ run_mutect2(){
         --tumor-segmentation $OUT_DIR/${PATIENT_ID}.segments.table \
         --contamination-table $OUT_DIR/${PATIENT_ID}.contamination.table \
         -O $OUT_DIR/${PATIENT_ID}.filtered.vcf
+
+
+    wait
 
     conda deactivate
 }
@@ -78,6 +81,7 @@ run_haplotypecaller(){
     -V $OUT_DIR/${PATIENT_ID}.germline.g.vcf.gz \
     -O $OUT_DIR/${PATIENT_ID}.germline.vcf.gz
 
+    wait
     conda deactivate
 }
 
@@ -94,14 +98,15 @@ run_varscan_preprocessing(){
     samtools mpileup \
         -f $REF_GENOME \
         -q 1 -B \
-        $INPUT_DIR/$TUMOR_ID.sorted.du.bqsr.bam > $OUT_DIR/$TUMOR_ID.pileup &
+        $INPUT_DIR/$TUMOR_ID.sorted.du.bqsr.bam > $OUT_DIR/$TUMOR_ID.pileup
 
     samtools mpileup \
         -f $REF_GENOME \
         -q 1 -B \
-        $INPUT_DIR/$NORMAL_ID.sorted.du.bqsr.bam > $OUT_DIR/$NORMAL_ID.pileup &
+        $INPUT_DIR/$NORMAL_ID.sorted.du.bqsr.bam > $OUT_DIR/$NORMAL_ID.pileup
     )
 
+    wait
     conda deactivate
 
 } 
@@ -123,8 +128,8 @@ run_somatic_varscan(){
         --min-var-freq 0.05
 
     (
-        varscan processSomatic $OUT_DIR/${PATIENT_ID}.somatic.snp.vcf --min-tumor-freq 0.05 &
-        varscan processSomatic $OUT_DIR/${PATIENT_ID}.somatic.indel.vcf --min-tumor-freq 0.05 &
+        varscan processSomatic $OUT_DIR/${PATIENT_ID}.somatic.snp.vcf --min-tumor-freq 0.05
+        varscan processSomatic $OUT_DIR/${PATIENT_ID}.somatic.indel.vcf --min-tumor-freq 0.05
     )
 
     wait 
@@ -149,8 +154,8 @@ run_germline_varscan(){
         --min-var-freq 0.1
 
     (
-        varscan processSomatic $OUT_DIR/${PATIENT_ID}.germline.snp.vcf --min-tumor-freq 0.1 &
-        varscan processSomatic $OUT_DIR/${PATIENT_ID}.germline.indel.vcf --min-tumor-freq 0.1 &
+        varscan processSomatic $OUT_DIR/${PATIENT_ID}.germline.snp.vcf --min-tumor-freq 0.1
+        varscan processSomatic $OUT_DIR/${PATIENT_ID}.germline.indel.vcf --min-tumor-freq 0.1
     )
 
     wait 
@@ -178,16 +183,16 @@ run_varscan(){
             $OUT_DIR \
             $TUMOR_ID \
             $NORMAL_ID \
-            $PATIENT_ID &
+            $PATIENT_ID
 
         run_germline_varscan \
             $INPUT_DIR \
             $OUT_DIR \
             $TUMOR_ID \
             $NORMAL_ID \
-            $PATIENT_ID &
+            $PATIENT_ID
     )
-    
+
     wait
 
 }
