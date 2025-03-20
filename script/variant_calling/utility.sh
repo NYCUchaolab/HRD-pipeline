@@ -46,11 +46,12 @@ run_mutect2(){
         -O $OUT_DIR/${PATIENT_ID}.contamination.table \
         -tumor-segmentation $OUT_DIR/${PATIENT_ID}.segments.table
 
-    gatk FilterMutectCalls -R ${myfasta} \
-        -V $OUT_DIR/${PATIENT_ID}.unfiltered.vcf \
+    gatk FilterMutectCalls \
+        --reference ${REF_GENOME} \
+        --output $OUT_DIR/${PATIENT_ID}.filtered.vcf \
+        --variant $OUT_DIR/${PATIENT_ID}.unfilter.vcf \
         --tumor-segmentation $OUT_DIR/${PATIENT_ID}.segments.table \
-        --contamination-table $OUT_DIR/${PATIENT_ID}.contamination.table \
-        -O $OUT_DIR/${PATIENT_ID}.filtered.vcf
+        --contamination-table $OUT_DIR/${PATIENT_ID}.contamination.table
 
 
     wait
