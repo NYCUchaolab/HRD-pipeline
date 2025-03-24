@@ -1,3 +1,5 @@
+#!/usr/bin/sh
+
 sbatch?(){
     sbatch_status=$1
     script=$2
@@ -13,5 +15,3 @@ sbatch?(){
     fi
 }
 
-sbatch? 1 script.sh 1 2 3 4
-sbatch? 2 script2.sh 5 6 7 8

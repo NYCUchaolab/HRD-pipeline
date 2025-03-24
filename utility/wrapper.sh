@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/usr/bin/sh
+
+source $HRD_PIPELINE_CONFIG
+source $SLURM_INFO
 
 # Check if at least one argument (the script to run) is provided
 if [ "$#" -lt 1 ]; then
@@ -20,11 +23,6 @@ JOB_NAME="${JOB_NAME%.*}"
 
 # Submit the job using sbatch with the --wrap option
 sbatch \
-  -A MST109178 \
+  $USER_INFO \
   -J $JOB_NAME \
-  -p ngs372G \
-  -c 56 \
-  --mem=372g \
-  --mail-user=hiiluann99.dump@gmail.com \
-  --mail-type=FAIL \
   --wrap="bash ${SCRIPT_TO_RUN} ${SCRIPT_ARGS}"

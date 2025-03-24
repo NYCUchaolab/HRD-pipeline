@@ -1,0 +1,9 @@
+#!/usr/bin/sh
+
+USER_INFO="
+    -A <project> 
+    -p <node> 
+    -c <CPU> 
+    --mem=<RAM> 
+    --mail-user=<user@email.com> 
+    --mail-type=FAIL"
