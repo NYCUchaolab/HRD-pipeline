@@ -86,7 +86,7 @@ run_haplotypecaller(){
     conda deactivate
 }
 
-run_varscan_preprocessing(){
+run_varscan(){
     INPUT_DIR=$1
     OUT_DIR=$2
     TUMOR_ID=$3
@@ -108,18 +108,6 @@ run_varscan_preprocessing(){
     )
 
     wait
-    conda deactivate
-
-} 
-
-run_somatic_varscan(){
-    INPUT_DIR=$1
-    OUT_DIR=$2
-    TUMOR_ID=$3
-    NORMAL_ID=$4
-    PATIENT_ID=$5
-
-    conda activate $VARS_ENV
 
     varscan somatic \
         $OUT_DIR/$NORMAL_ID.pileup \
@@ -134,66 +122,6 @@ run_somatic_varscan(){
     )
 
     wait 
+    conda deactivate
 
-    conda deactivate 
-}
-
-run_germline_varscan(){
-    INPUT_DIR=$1
-    OUT_DIR=$2
-    TUMOR_ID=$3
-    NORMAL_ID=$4
-    PATIENT_ID=$5
-
-    conda activate $VARS_ENV
-
-    varscan somatic \
-        $OUT_DIR/$NORMAL_ID.pileup \
-        $OUT_DIR/$TUMOR_ID.pileup \
-        $OUT_DIR/$PATIENT_ID.germline \
-        --output-vcf \
-        --min-var-freq 0.1
-
-    (
-        varscan processSomatic $OUT_DIR/${PATIENT_ID}.germline.snp.vcf --min-tumor-freq 0.1
-        varscan processSomatic $OUT_DIR/${PATIENT_ID}.germline.indel.vcf --min-tumor-freq 0.1
-    )
-
-    wait 
-    
-    conda deactivate 
-}
-
-run_varscan(){
-    INPUT_DIR=$1
-    OUT_DIR=$2
-    TUMOR_ID=$3
-    NORMAL_ID=$4
-    PATIENT_ID=$5
-
-    run_varscan_preprocessing \
-        $INPUT_DIR \
-        $OUT_DIR \
-        $TUMOR_ID \
-        $NORMAL_ID \
-        $PATIENT_ID
-
-    (
-        run_somatic_varscan \
-            $INPUT_DIR \
-            $OUT_DIR \
-            $TUMOR_ID \
-            $NORMAL_ID \
-            $PATIENT_ID
-
-        run_germline_varscan \
-            $INPUT_DIR \
-            $OUT_DIR \
-            $TUMOR_ID \
-            $NORMAL_ID \
-            $PATIENT_ID
-    )
-
-    wait
-
-}
+} 
