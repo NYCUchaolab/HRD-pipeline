@@ -2,3 +2,4 @@ token/
 reference/
 config/
 script/variant_calling/gabage/
+script/merge_caller/working_site/
