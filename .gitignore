@@ -2,3 +2,5 @@ token/
 reference/
 reference
 script/variant_calling/gabage/
+script/merge_caller/
+config/
