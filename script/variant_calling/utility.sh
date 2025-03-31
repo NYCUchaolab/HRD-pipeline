@@ -125,4 +125,7 @@ run_varscan(){
     conda deactivate
 
 } 
+<<<<<<< HEAD
 
+=======
+>>>>>>> Variant_calling
