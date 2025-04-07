@@ -12,7 +12,7 @@ fi
 # Extract the script to run and its arguments
 SCRIPT_TO_RUN=$1
 shift
-SCRIPT_ARGS="$@"
+SCRIPT_ARGS=$@
 
 
 

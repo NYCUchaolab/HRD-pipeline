@@ -6,10 +6,10 @@ shopt -s expand_aliases
 
 FILE_LIST=$1
 INPUT_DIR=$2
-OUT_DIR=$3
+WORK_DIR=$3
+OUT_DIR=$4
 
 while read -r file; do
     [[ -z "$file" ]] && continue  # Skip empty lines
-    echo "Downloading: $file"
-    bash $HRD_DIR/paired_preprocessing.sh $INPUT_DIR/$file $OUT_DIR $OUT_DIR
-done < "$FILE_LIST" 
+    bash $HRD_DIR/paired_preprocessing.sh $INPUT_DIR/$file $WORK_DIR $OUT_DIR
+done < "$FILE_LIST"
