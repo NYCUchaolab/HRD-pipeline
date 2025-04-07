@@ -43,10 +43,25 @@ sra2fastq(){
     conda deactivate
 }
 
+fastqc(){
+    conda activate $QC_ENV
+    
+    SAMPLE=$1
+    WOKR_DIR=$2
+    OUTPUT_DIR=$3
+
+    READ_1=${SAMPLE}_1.fastq.gz
+    READ_2=${SAMPLE}_2.fastq.gz
+
+    fastqc -t 2 $READ_1 $READ_2
+
+    conda deactivate
+}
+
 
 trimming(){
 
-    conda activate $PRE1_ENV
+    conda activate $PRE_ENV
     INPUT_DIR=$1
     OUTPUT_DIR=$2
     SAMPLE=$3
@@ -73,7 +88,7 @@ bwa_mapping(){
     OUT_FILE=$3 ## {OUT_DIR/SAMPLE.bam}
     SAMPLE=$4
 
-    conda activate $PRE1_ENV
+    conda activate $PRE_ENV
 
     bwa mem -t $THREAD \
         -aM -T 0 -R "@RG\tID:$SAMPLE\tSM:$SAMPLE\tPL:ILLUMINA" \
@@ -89,7 +104,7 @@ bam_sorting(){
     BAM_FILE=$1
     OUT_FILE=$2
 
-    conda activate $PRE1_ENV
+    conda activate $PRE_ENV
 
     picard SortSam \
         CREATE_INDEX=true \
@@ -103,7 +118,7 @@ bam_sorting(){
 
 mark_duplicate(){
     
-    conda activate $PRE1_ENV
+    conda activate $PRE_ENV
     BAM_FILE=$1
     OUT_FILE=$2
     MATRIX_FILE=$3

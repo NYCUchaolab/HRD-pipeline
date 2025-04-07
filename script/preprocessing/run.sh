@@ -9,15 +9,20 @@ source $HRD_PIPELINE_DIR/preprocessing/utility.sh
 SRR_ID=$1
 WORK_DIR=$2
 OUTPUT_DIR=$3
+VERBOSE=1
 
 # download fastq file another script
 # download $SRR_ID $NGC $WORK_DIR $OUTPUT_DIR 
 
-sra2fastq $SRR_ID $WORK_DIR $OUT_DIR
+sra2fastq $SRR_ID $WORK_DIR $OUTPUT_DIR
 
 wait
 
-trimming $WORK_DIR $OUTPUT_DIR $SRR_ID 
+fastqc $SRR_ID $OUT_DIR $OUT_DIR
+
+wait
+
+trimming $OUTPUT_DIR $OUTPUT_DIR $SRR_ID 
 
 wait 
 
@@ -39,7 +44,14 @@ mark_duplicate \
     ${OUTPUT_DIR}/${SRR_ID}.matrix.txt 
 
 wait
+rm ${OUTPUT_DIR}/${SRR_ID}.sorted.bam
+rm ${OUTPUT_DIR}/${SRR_ID}.sorted.bai
 
 bqsr ${OUTPUT_DIR}/${SRR_ID}.sorted.du.bam \
     ${OUTPUT_DIR}/${SRR_ID}.sorted.du.bqsr.bam \
     ${OUTPUT_DIR}/${SRR_ID}.recalibration_report.txt
+
+wait
+
+rm ${OUTPUT_DIR}/${SRR_ID}.sorted.du.bam
+rm ${OUTPUT_DIR}/${SRR_ID}.sorted.du.bai
