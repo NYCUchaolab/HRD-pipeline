@@ -13,5 +13,7 @@ SRR_IDs=("$@")
 VERBOSE=1
 
 for id in ${SRR_IDs[@]}; do
-    fastqc $id $WORK_DIR $OUT_DIR &
+    fastqc $id $WORK_DIR $OUT_DIR & 
 done
+
+wait
