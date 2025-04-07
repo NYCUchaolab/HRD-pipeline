@@ -47,13 +47,13 @@ fastqc(){
     conda activate $QC_ENV
     
     SAMPLE=$1
-    WOKR_DIR=$2
+    INPUT_DIR=$2
     OUTPUT_DIR=$3
 
     READ_1=${SAMPLE}_1.fastq.gz
     READ_2=${SAMPLE}_2.fastq.gz
 
-    fastqc -t 2 $READ_1 $READ_2
+    fastqc -t 2 $INPUT_DIR/$READ_1 $INPUT_DIR/$READ_2 -o $OUTPUT_DIR
 
     conda deactivate
 }
@@ -158,3 +158,13 @@ bqsr(){
     conda deactivate
 }
 
+bamqc(){
+
+    BAM_FILE=$1
+    OUT_DIR=$2
+
+    conda activate $QC_ENV
+    qualimap bamqc -bam $BAM_FILE -o $OUT_DIR
+
+    conda deactivate
+}
