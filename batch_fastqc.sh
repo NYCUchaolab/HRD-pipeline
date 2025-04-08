@@ -18,9 +18,11 @@ while read -r file; do
     parse_SRA_samplesheet $INPUT_DIR/$file
     SRA_INFO_ARRAY+=("$Tumor_SRR_ID")
     SRA_INFO_ARRAY+=("$Normal_SRR_ID")
+    echo "$Tumor_SRR_ID"
+    echo "$Normal_SRR_ID"
 done < "$FILE_LIST"
 
-bash $HRD_DIR/utility/wrapper.sh \
+bash $HRD_DIR/utility/wrapper_mod.sh \
     $HRD_PIPELINE_DIR/preprocessing/fastqc.sh \
     $WORK_DIR \
     $OUTPUT_DIR \

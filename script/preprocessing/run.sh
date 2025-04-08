@@ -56,6 +56,6 @@ wait
 rm ${OUTPUT_DIR}/${SRR_ID}.sorted.du.bam
 rm ${OUTPUT_DIR}/${SRR_ID}.sorted.du.bai
 
-bamqc ${OUTPUT_DIR}/${SRR_ID}.sorted.du.bqsr.bam ${OUTPUT_DIR}
+bamqc ${SRR_ID} ${OUTPUT_DIR}/${SRR_ID}.sorted.du.bqsr.bam ${OUTPUT_DIR}
 
 wait

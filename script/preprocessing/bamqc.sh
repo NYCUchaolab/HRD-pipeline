@@ -13,7 +13,7 @@ SRR_IDs=("$@")
 VERBOSE=1
 
 for id in ${SRR_IDs[@]}; do
-    bamqc ${OUTPUT_DIR}/${SRR_ID}.sorted.du.bqsr.bam -outdir $OUTPUT_DIR -outfile ${SRR_ID}.report.pdf & 
+    bamqc $SRR_ID ${OUTPUT_DIR}/${SRR_ID}.sorted.du.bqsr.bam $OUTPUT_DIR
 done
 
 wait
