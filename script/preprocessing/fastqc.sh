@@ -12,9 +12,8 @@ shift 2  # Remove the first two parameters so that $@ now contains only the SRR 
 SRR_IDs=("$@")
 VERBOSE=1
 
-for id in ${SRR_IDs[@]}; do
-    echo $id
-    fastqc $id $WORK_DIR $OUT_DIR
+for ID in ${SRR_IDs[@]}; do
+    run_fastqc $ID $WORK_DIR $OUT_DIR
 done
 
 wait

@@ -43,9 +43,9 @@ sra2fastq(){
     conda deactivate
 }
 
-fastqc(){
+run_fastqc(){
     conda activate $QC_ENV
-    
+
     SAMPLE=$1
     INPUT_DIR=$2
     OUTPUT_DIR=$3
@@ -53,6 +53,7 @@ fastqc(){
     READ_1=${SAMPLE}_1.fastq.gz
     READ_2=${SAMPLE}_2.fastq.gz
 
+    # echo "fastqc -t 2 $INPUT_DIR/$READ_1 $INPUT_DIR/$READ_2 -o $OUTPUT_DIR"
     fastqc -t 2 $INPUT_DIR/$READ_1 $INPUT_DIR/$READ_2 -o $OUTPUT_DIR
 
     conda deactivate
