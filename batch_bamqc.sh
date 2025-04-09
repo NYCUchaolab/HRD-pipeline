@@ -20,11 +20,16 @@ while read -r file; do
     SRA_INFO_ARRAY+=("$Normal_SRR_ID")
 done < "$FILE_LIST"
 
-bash $HRD_DIR/utility/wrapper.sh \
+bash $HRD_DIR/utility/wrapper_mod_2.sh \
     $HRD_PIPELINE_DIR/preprocessing/bamqc.sh \
     $WORK_DIR \
-    $OUTPUT_DIR \
+    $OUT_DIR \
     ${SRA_INFO_ARRAY[@]} \
+
+# bash    $HRD_PIPELINE_DIR/preprocessing/bamqc.sh \
+#     $WORK_DIR \
+#     $OUT_DIR \
+#     ${SRA_INFO_ARRAY[@]} \    
 
 
 

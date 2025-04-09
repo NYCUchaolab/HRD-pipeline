@@ -18,7 +18,7 @@ sra2fastq $SRR_ID $WORK_DIR $OUTPUT_DIR
 
 wait
 
-fastqc $SRR_ID $OUT_DIR $OUT_DIR
+run_fastqc $SRR_ID $OUTPUT_DIR $OUTPUT_DIR
 
 wait
 

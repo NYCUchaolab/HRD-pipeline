@@ -162,11 +162,11 @@ bqsr(){
 bamqc(){
     SRA_ID=$1
     BAM_FILE=$2
-    OUT_DIR=$2
+    OUT_DIR=$3
 
     conda activate $QC_ENV
-    
-    qualimap --java-mem-size=20000M bamqc -bam $BAM_FILE -outdir $OUT_DIR -outfile ${SRA_ID}.report.pdf
+    echo "qualimap --java-mem-size=40000M bamqc -bam $BAM_FILE -outdir $OUT_DIR/$SRA_ID -outfile ${SRA_ID}.report.pdf"
+    qualimap --java-mem-size=40000M bamqc -bam $BAM_FILE -outdir $OUT_DIR -outfile ${SRA_ID}.report.pdf
 
     conda deactivate
 }

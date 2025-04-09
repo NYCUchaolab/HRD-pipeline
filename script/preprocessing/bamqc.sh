@@ -12,8 +12,9 @@ shift 2  # Remove the first two parameters so that $@ now contains only the SRR 
 SRR_IDs=("$@")
 VERBOSE=1
 
-for id in ${SRR_IDs[@]}; do
-    bamqc $SRR_ID ${OUTPUT_DIR}/${SRR_ID}.sorted.du.bqsr.bam $OUTPUT_DIR
+for SRR_ID in ${SRR_IDs[@]}; do
+    # echo $SRR_ID
+    bamqc $SRR_ID ${WORK_DIR}/${SRR_ID}.sorted.du.bqsr.bam $OUTPUT_DIR
 done
 
 wait
