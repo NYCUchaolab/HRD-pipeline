@@ -36,12 +36,12 @@ Tumor_SRR_ID=$3
 Normal_SRR_ID=$4
 Patient_ID=$5
 
-# bam2seqz \
-#     $WORK_DIR \
-#     $OUTPUT_DIR \
-#     $Tumor_SRR_ID \
-#     $Normal_SRR_ID \
-#     $Patient_ID 
+bam2seqz \
+    $WORK_DIR \
+    $OUTPUT_DIR \
+    $Tumor_SRR_ID \
+    $Normal_SRR_ID \
+    $Patient_ID 
 
 run_ScarHRD \
     $WORK_DIR \
