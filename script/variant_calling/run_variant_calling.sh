@@ -12,7 +12,6 @@ Patient_ID=$5
 run_haplotypecaller \
     $WORK_DIR \
     $OUTPUT_DIR \
-    $Tumor_SRR_ID \
     $Normal_SRR_ID \
     $Patient_ID
 

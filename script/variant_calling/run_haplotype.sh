@@ -5,13 +5,12 @@ source $HRD_PIPELINE_DIR/variant_calling/utility.sh
 
 WORK_DIR=$1
 OUTPUT_DIR=$2
-Tumor_SRR_ID=$3
-Normal_SRR_ID=$4
+# Tumor_SRR_ID=$3
+Normal_SRR_ID=$3
 Patient_ID=$5
 
 run_haplotypecaller \
     $WORK_DIR \
     $OUTPUT_DIR \
-    $Tumor_SRR_ID \
     $Normal_SRR_ID \
     $Patient_ID

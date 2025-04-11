@@ -62,8 +62,8 @@ run_mutect2(){
 run_haplotypecaller(){
     WORK_DIR=$1
     OUT_DIR=$2
-    NORMAL_ID=$4
-    PATIENT_ID=$5
+    NORMAL_ID=$3
+    PATIENT_ID=$4
 
     conda activate $GATK_ENV
 
@@ -124,8 +124,6 @@ run_varscan(){
     wait 
     conda deactivate
 
-} 
-<<<<<<< HEAD
 
-=======
->>>>>>> Variant_calling
+
+} 

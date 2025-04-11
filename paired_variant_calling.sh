@@ -12,17 +12,24 @@ OUTPUT_DIR=$3
 parse_SRA_samplesheet $sample_sheet
 
 bash $HRD_DIR/utility/wrapper.sh \
-    $HRD_PIPELINE_DIR/variant_calling/run.sh \
+    $HRD_PIPELINE_DIR/variant_calling/run_mutect.sh \
+    $WORK_DIR \
+    $OUTPUT_DIR \
     $Tumor_SRR_ID \
-    $WORK_DIR \
-    $OUTPUT_DIR
-
-sleep 1
-
-bash 
-    $HRD_PIPELINE_DIR/variant_calling/run.sh \
     $Normal_SRR_ID \
-    $WORK_DIR \
-    $OUTPUT_DIR
+    $Patient_ID
 
-sleep 1
+bash $HRD_DIR/utility/wrapper.sh \
+    $HRD_PIPELINE_DIR/variant_calling/run_varscan.sh \
+    $WORK_DIR \
+    $OUTPUT_DIR \
+    $Tumor_SRR_ID \
+    $Normal_SRR_ID \
+    $Patient_ID
+
+bash $HRD_DIR/utility/wrapper.sh \
+    $HRD_PIPELINE_DIR/variant_calling/run_haplotype.sh \
+    $WORK_DIR \
+    $OUTPUT_DIR \
+    $Normal_SRR_ID \
+    $Patient_ID
