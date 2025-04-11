@@ -14,19 +14,19 @@ run_ScarHRD(){
     Patient_ID=$3
 
 
-    cd $OUT_DIR
+    cd $WORK_DIR
 
     conda activate $SCAR_ENV
 
     Rscript $HRD_PIPELINE_DIR/HRD_calculation/run_scarHRD.R \
-        -i $WORK_DIR \
+        -i ./ \
         -p $Patient_ID
 
     conda deactivate
 
     cd $cwd
-    mv $OUTPUT_DIR/${Patient_ID}.small.seqz._HRDresults.txt $OUTPUT_DIR/${Patient_ID}_HRDresults.txt
-    mv $OUTPUT_DIR/${Patient_ID}.small.seqz._info_seg.txt $OUTPUT_DIR/${Patient_ID}_info_seg.txt
+    mv $WORK_DIR/${Patient_ID}.small.seqz._HRDresults.txt $OUTPUT_DIR/${Patient_ID}_HRDresults.txt
+    mv $WORK_DIR/${Patient_ID}.small.seqz._info_seg.txt $OUTPUT_DIR/${Patient_ID}_info_seg.txt
 
 }
 

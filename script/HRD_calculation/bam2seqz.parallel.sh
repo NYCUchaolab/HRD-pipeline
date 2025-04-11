@@ -27,8 +27,8 @@ bam2seqz(){
     conda activate $SEQZ_ENV
 
     sequenza-utils bam2seqz \
-        -t ${WORK_DIR}/${Tumor_SRR_ID}_sorted_du_bqsr.bam \
-        -n ${WORK_DIR}/${Normal_SRR_ID}_sorted_du_bqsr.bam \
+        -t ${WORK_DIR}/${Tumor_SRR_ID}.sorted.du.bqsr.bam \
+        -n ${WORK_DIR}/${Normal_SRR_ID}.sorted.du.bqsr.bam \
         --fasta $REF_GENOME \
         -C $CHR \
         --parallel 24 \
