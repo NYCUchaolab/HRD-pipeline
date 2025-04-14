@@ -1,11 +1,9 @@
 token/
-reference/
-<<<<<<< HEAD
-config/
-script/variant_calling/gabage/
-=======
+
 reference
 script/variant_calling/gabage/
 script/merge_caller/
 config/
->>>>>>> Variant_calling
+
+batch_check_preprocessing.sh
+check_preprocessing.sh
