@@ -12,7 +12,7 @@ OUTPUT_DIR=$3
 
 parse_SRA_samplesheet $sample_sheet
 
-bash $HRD_DIR/utility/wrapper_mod_2.sh \
+bash $HRD_DIR/utility/wrapper.sh \
     $HRD_PIPELINE_DIR/HRD_calculation/HRD_calculation.sh \
     $WORK_DIR \
     $OUTPUT_DIR \
