@@ -116,7 +116,7 @@ Each of the batch scripts requires four arguments (except `batch_download.sh`, w
    - **Calculate HRD Scores**:
      The `batch_HRD_calculation.sh` script calculates HRD scores from the processed data:
      ```bash
-     bash batch_hrd_calculate.sh <sample_list.txt> <samplesheet_dir> <input_dir> <output_dir>
+     bash batch_HRD_calculate.sh <sample_list.txt> <samplesheet_dir> <input_dir> <output_dir>
      ```
 
 ### Example Command
